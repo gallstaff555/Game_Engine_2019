@@ -1,0 +1,264 @@
+link_sprites.png
+size: 1480, 40
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+backIdle
+  rotate: false
+  xy: 0, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+backIdle
+  rotate: false
+  xy: 40, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+backIdle
+  rotate: false
+  xy: 80, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+backIdle
+  rotate: false
+  xy: 120, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+backRun
+  rotate: false
+  xy: 160, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+backRun
+  rotate: false
+  xy: 200, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+backRun
+  rotate: false
+  xy: 240, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+backRun
+  rotate: false
+  xy: 280, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+forwardIdle
+  rotate: false
+  xy: 320, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+forwardIdle
+  rotate: false
+  xy: 360, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+forwardIdle
+  rotate: false
+  xy: 400, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+forwardIdle
+  rotate: false
+  xy: 440, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+forwardIdle
+  rotate: false
+  xy: 480, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 4
+forwardIdle
+  rotate: false
+  xy: 520, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 5
+forwardIdle
+  rotate: false
+  xy: 560, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 6
+forwardIdle
+  rotate: false
+  xy: 600, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 7
+forwardRun
+  rotate: false
+  xy: 640, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+forwardRun
+  rotate: false
+  xy: 680, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+forwardRun
+  rotate: false
+  xy: 720, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+forwardRun
+  rotate: false
+  xy: 760, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+leftAttack
+  rotate: false
+  xy: 800, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+leftAttack
+  rotate: false
+  xy: 840, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+leftIdle
+  rotate: false
+  xy: 880, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+leftRun
+  rotate: false
+  xy: 920, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+leftRun
+  rotate: false
+  xy: 960, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+leftRun
+  rotate: false
+  xy: 1000, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+leftRun
+  rotate: false
+  xy: 1040, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+rightAttack
+  rotate: false
+  xy: 1080, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+rightAttack
+  rotate: false
+  xy: 1120, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+rightAttack
+  rotate: false
+  xy: 1160, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+rightAttack
+  rotate: false
+  xy: 1200, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+rightBlock
+  rotate: false
+  xy: 1240, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+rightIdle
+  rotate: false
+  xy: 1280, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+rightRun
+  rotate: false
+  xy: 1320, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 0
+rightRun
+  rotate: false
+  xy: 1360, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+rightRun
+  rotate: false
+  xy: 1400, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+rightRun
+  rotate: false
+  xy: 1440, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
