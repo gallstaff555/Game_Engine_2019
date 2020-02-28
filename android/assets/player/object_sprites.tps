@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../world_objects/objects.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>../world_objects/objects.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,11 +181,11 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../Aseprite/raw_assets/objectAssets/fire_0.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/objectAssets/fire_1.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/objectAssets/fire_2.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/objectAssets/fire_3.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/objectAssets/fire_4.png</key>
+            <key type="filename">../world_objects/fire_0.png</key>
+            <key type="filename">../world_objects/fire_1.png</key>
+            <key type="filename">../world_objects/fire_2.png</key>
+            <key type="filename">../world_objects/fire_3.png</key>
+            <key type="filename">../world_objects/fire_4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -203,11 +203,11 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../Aseprite/raw_assets/objectAssets/fire_0.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/objectAssets/fire_1.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/objectAssets/fire_2.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/objectAssets/fire_3.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/objectAssets/fire_4.png</filename>
+            <filename>../world_objects/fire_0.png</filename>
+            <filename>../world_objects/fire_1.png</filename>
+            <filename>../world_objects/fire_2.png</filename>
+            <filename>../world_objects/fire_3.png</filename>
+            <filename>../world_objects/fire_4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

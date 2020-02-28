@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
@@ -21,6 +22,7 @@ import com.david.game.actors.ForegroundObject;
 import com.david.game.actors.Player;
 import com.david.game.utils.PlayerCollision;
 import com.david.game.utils.PlayerMovement;
+import com.david.game.world.GameLevel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class GameMain extends Game {
 	private PlayerMovement playerMovement;
 	private PlayerCollision playerCollision;
 
+	private GameLevel currentLevel;
 	private MapObjects collisionObjects;
 	private MapObjects warpObjects;
 
@@ -60,20 +63,23 @@ public class GameMain extends Game {
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(CAMERA_WIDTH, CAMERA_HEIGHT, camera);
 
-		//map
+		//starting map
 		map = new TmxMapLoader().load("map/forest_01.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 
+		//create level
+		currentLevel = new GameLevel("Starting level", map, tiledMapRenderer);
+
+		//Collision directions array
+		this.createCollisionMap();
+
 		//map and camera
-		MapProperties mapProperties = map.getProperties();
+		//TODO update these values when loading a new map
+		/*MapProperties mapProperties = map.getProperties();
 		horizontalTiles = mapProperties.get("width", Integer.class);
 		verticalTiles = mapProperties.get("height", Integer.class);
 		cameraHalfWidth = CAMERA_WIDTH / 2;
 		cameraHalfHeight = CAMERA_HEIGHT / 2;
-
-		//Collisions
-		this.createCollisionMap();
-
 
 		//collision layer
 		MapLayer collisionLayer = map.getLayers().get(COLLISION_LAYER_NAME);
@@ -81,20 +87,44 @@ public class GameMain extends Game {
 
 		//warp layer
 		MapLayer warpLayer = map.getLayers().get(WARP_LAYER_NAME);
-		warpObjects = warpLayer.getObjects();
+		warpObjects = warpLayer.getObjects(); */
 
-		//Actors and stage
 		stage = new Stage(viewport);
 		player = new Player();
 		playerMovement = new PlayerMovement(player);
-		playerCollision = new PlayerCollision(player, collisionObjects);
+		//playerCollision = new PlayerCollision(player, collisionObjects);
+
+		setUpLevelMapAndCamera(currentLevel);
+
+		//Actors and stage
+
+
 		stage.addActor(player);
-		addFixedObjectsToStage();
+		//addFixedObjectsToStage();
 
 		player.playerPosition(horizontalTiles * TILE_HALF_SCALE + 16,
 				verticalTiles * TILE_HALF_SCALE); // * 8 gives middle of map
 		camera.position.set(player.getX(), player.getY(), 0);
 		camera.update();
+	}
+
+	private void setUpLevelMapAndCamera(GameLevel theLevel) {
+
+
+		MapProperties mapProperties = theLevel.getMap().getProperties();
+		horizontalTiles = mapProperties.get("width", Integer.class);
+		verticalTiles = mapProperties.get("height", Integer.class);
+		cameraHalfWidth = CAMERA_WIDTH / 2;
+		cameraHalfHeight = CAMERA_HEIGHT / 2;
+
+		MapLayer collisionLayer = theLevel.getMap().getLayers().get(COLLISION_LAYER_NAME);
+		collisionObjects = collisionLayer.getObjects();
+		playerCollision = new PlayerCollision(player, collisionObjects);
+
+		MapLayer warpLayer = theLevel.getMap().getLayers().get(WARP_LAYER_NAME);
+		warpObjects = warpLayer.getObjects();
+
+
 	}
 
 	@Override
@@ -158,11 +188,11 @@ public class GameMain extends Game {
 		for (RectangleMapObject rectangleObject : warpObjects.getByType(RectangleMapObject.class)) {
 
 			Rectangle warpObject = rectangleObject.getRectangle();
+			//warp player to new level
 			if (Intersector.overlaps(warpObject, player.getPlayerRectangle())) {
-				//System.out.println("WARP SPEED!!");
 				String objectName = "map/" + rectangleObject.getName() + ".tmx";
 				System.out.println(objectName);
-				this.loadNewMap(objectName);
+				this.loadNewLevel(objectName);
 			}
 		}
 	}
@@ -187,9 +217,13 @@ public class GameMain extends Game {
 		stage.addActor(fire_1);
 	}
 
-	private void loadNewMap(String mapFile) {
+	private void loadNewLevel(String mapFile) {
+		//currentLevel.removeAllObjectsAndAnimations();
 		map = new TmxMapLoader().load(mapFile);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+		currentLevel = new GameLevel(mapFile, map, tiledMapRenderer);
+		setUpLevelMapAndCamera(currentLevel);
+		this.setCameraPosition();
 	}
 
 	private void createCollisionMap() {

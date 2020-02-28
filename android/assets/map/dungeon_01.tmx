@@ -45,9 +45,9 @@
   <object id="9" name="forest_01" type="warp" x="198" y="57" width="5" height="5"/>
  </objectgroup>
  <objectgroup id="3" name="Collision">
-  <object id="4" x="-4.66667" y="-8" width="272" height="27"/>
-  <object id="6" x="249" y="17.6667" width="31.3333" height="260.333"/>
-  <object id="7" x="-6.66667" y="247.333" width="273.333" height="19.3333"/>
-  <object id="8" x="-15.6667" y="1" width="26.3333" height="271.333"/>
+  <object id="4" x="-3" y="3.66667" width="272" height="27"/>
+  <object id="6" x="241" y="33.3333" width="43.3333" height="167.333"/>
+  <object id="7" x="-6" y="203" width="273.333" height="49"/>
+  <object id="8" x="-27.6667" y="35" width="38.3333" height="163.333"/>
  </objectgroup>
 </map>

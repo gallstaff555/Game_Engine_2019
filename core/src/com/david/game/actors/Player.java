@@ -25,6 +25,9 @@ public class Player extends Actor {
     private TextureAtlas textureAtlas;
     private float elapsedTime = 0f;
 
+    private float storedXCoord;
+    private float storedYCoord;
+
     public Player() {
         this.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         setTouchable(Touchable.enabled);
