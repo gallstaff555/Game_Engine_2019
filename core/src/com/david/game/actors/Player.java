@@ -22,26 +22,27 @@ public class Player extends Actor {
     private Sprite sprite = new Sprite(new Texture(Gdx.files.internal("player/link_sprites.png"))); //"character_elf.png"
     private Animation<TextureRegion> characterAnimation;
     private Array<TextureAtlas.AtlasRegion> characterFrames;
+    private TextureRegion currentFrame;
     private TextureAtlas textureAtlas;
     private float elapsedTime = 0f;
-
-    private float storedXCoord;
-    private float storedYCoord;
+    private boolean isAttacking = false;
 
     public Player() {
         this.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         setTouchable(Touchable.enabled);
         playerDirection = 'F';
-        textureAtlas = new TextureAtlas("player/link_sprites.txt"); //"player_sprites.txt"
-        characterFrames = textureAtlas.findRegions("forwardIdle"); //forwardIdle
+        textureAtlas = new TextureAtlas("player/link_sprites.txt"); //
+
+        //Running animation
+        characterFrames = textureAtlas.findRegions("forwardIdle"); //default: forwardIdle
         characterAnimation = new Animation<TextureRegion>( 1/16f, characterFrames);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        //sprite.draw(batch); //draws the sprite only, not the animation
-        TextureRegion currentFrame = characterAnimation.getKeyFrame(elapsedTime, true);
+        currentFrame = characterAnimation.getKeyFrame(elapsedTime, true);
         batch.draw(currentFrame, getX(), getY(), PLAYER_SIZE, PLAYER_SIZE);
+
     }
 
     @Override
@@ -64,7 +65,7 @@ public class Player extends Actor {
         this.setPosition(xMovement, yMovement);
     }
 
-    public void updateCharacterFrames(String region) {
+    public void updateAnimation(String region) {
         characterFrames = textureAtlas.findRegions(region);
     }
 
@@ -75,11 +76,15 @@ public class Player extends Actor {
         return rect;
     }
 
-    public void playerDispose() {
-        this.textureAtlas.dispose();
+    public void setPlayerAttacking(boolean attacking) {
+        this.isAttacking = attacking;
     }
 
-    public void attack(String attackAnimation) {
-        updateCharacterFrames(attackAnimation);
+    public boolean getPlayerAttacking() {
+        return this.isAttacking;
+    }
+
+    public void playerDispose() {
+        this.textureAtlas.dispose();
     }
 }

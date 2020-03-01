@@ -10,7 +10,8 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
@@ -20,8 +21,9 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.david.game.actors.ForegroundAnimation;
 import com.david.game.actors.ForegroundObject;
 import com.david.game.actors.Player;
+import com.david.game.actors.Weapon;
 import com.david.game.utils.PlayerCollision;
-import com.david.game.utils.PlayerMovement;
+import com.david.game.utils.PlayerControls;
 import com.david.game.world.GameLevel;
 
 import java.util.HashMap;
@@ -43,8 +45,9 @@ public class GameMain extends Game {
 
 	private Stage stage;
 	private Player player;
-	private PlayerMovement playerMovement;
-	private PlayerCollision playerCollision;
+	private Weapon playerWeapon;
+	private PlayerControls playerMovement;
+	private PlayerCollision playerCollision; //playerCollision handles player colliding with collision layer in TiledMap
 
 	private GameLevel currentLevel;
 	private MapObjects collisionObjects;
@@ -73,58 +76,41 @@ public class GameMain extends Game {
 		//Collision directions array
 		this.createCollisionMap();
 
-		//map and camera
-		//TODO update these values when loading a new map
-		/*MapProperties mapProperties = map.getProperties();
-		horizontalTiles = mapProperties.get("width", Integer.class);
-		verticalTiles = mapProperties.get("height", Integer.class);
-		cameraHalfWidth = CAMERA_WIDTH / 2;
-		cameraHalfHeight = CAMERA_HEIGHT / 2;
-
-		//collision layer
-		MapLayer collisionLayer = map.getLayers().get(COLLISION_LAYER_NAME);
-		collisionObjects = collisionLayer.getObjects();
-
-		//warp layer
-		MapLayer warpLayer = map.getLayers().get(WARP_LAYER_NAME);
-		warpObjects = warpLayer.getObjects(); */
-
 		stage = new Stage(viewport);
 		player = new Player();
-		playerMovement = new PlayerMovement(player);
-		//playerCollision = new PlayerCollision(player, collisionObjects);
+		playerWeapon = new Weapon();
+		playerMovement = new PlayerControls(player);
 
+		//map and camera and layers
 		setUpLevelMapAndCamera(currentLevel);
 
 		//Actors and stage
-
-
 		stage.addActor(player);
+		stage.addActor(playerWeapon);
 		//addFixedObjectsToStage();
 
 		player.playerPosition(horizontalTiles * TILE_HALF_SCALE + 16,
 				verticalTiles * TILE_HALF_SCALE); // * 8 gives middle of map
+		playerWeapon.setPosition(player.getX(), player.getY() );
+
 		camera.position.set(player.getX(), player.getY(), 0);
 		camera.update();
 	}
 
 	private void setUpLevelMapAndCamera(GameLevel theLevel) {
-
-
+		//Set up variables used in setCameraPosition()
 		MapProperties mapProperties = theLevel.getMap().getProperties();
 		horizontalTiles = mapProperties.get("width", Integer.class);
 		verticalTiles = mapProperties.get("height", Integer.class);
 		cameraHalfWidth = CAMERA_WIDTH / 2;
 		cameraHalfHeight = CAMERA_HEIGHT / 2;
-
+		//Set up collision objects in collision layer in TiledMap
 		MapLayer collisionLayer = theLevel.getMap().getLayers().get(COLLISION_LAYER_NAME);
 		collisionObjects = collisionLayer.getObjects();
 		playerCollision = new PlayerCollision(player, collisionObjects);
 
 		MapLayer warpLayer = theLevel.getMap().getLayers().get(WARP_LAYER_NAME);
 		warpObjects = warpLayer.getObjects();
-
-
 	}
 
 	@Override
@@ -137,14 +123,19 @@ public class GameMain extends Game {
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 
-		//movement and user input
+		//movement and control input
 		playerMovement.updateMovemement(playerCollision.updateCollisions(collisionDirections), collisionDirections);
-		playerAttack();
+		//update whether player is attacking based on whether weaponAttack is active (weapon attack needs to know player direction)
+		player.setPlayerAttacking(playerWeapon.weaponAttack(player.getPlayerDirection()));
+		playerMovement.updateAttackAnimation();
+		playerWeapon.setPosition(player.getX(), player.getY());
 
+		//check collisions and warp objects
 		playerCollision.updateCollisions(collisionDirections);
 		detectWarp();
 
-		stage.act(Gdx.graphics.getDeltaTime()); //actor actions are updated when act() is called
+		//update and draw actors
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
 		this.setCameraPosition();
@@ -173,26 +164,23 @@ public class GameMain extends Game {
 				0);
 	}
 
-	private void playerAttack() {
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			if (player.getPlayerDirection() == 'R') {
-				player.attack("rightAttack");
-			}
-			if (player.getPlayerDirection() == 'L') {
-				player.attack("leftAttack");
-			}
-		}
-	}
-
+	/**
+	 * Determines if player is overlapping with a warp portal.
+	 * If so, loads TiledMap of the corresponding warp.
+	 */
 	private void detectWarp() {
 		for (RectangleMapObject rectangleObject : warpObjects.getByType(RectangleMapObject.class)) {
 
 			Rectangle warpObject = rectangleObject.getRectangle();
 			//warp player to new level
 			if (Intersector.overlaps(warpObject, player.getPlayerRectangle())) {
+				//float x = rectangleObject.getProperties().get("warp");
+				float xCoord = (float) rectangleObject.getProperties().get("warp_x_coord");
+				float yCoord = (float) rectangleObject.getProperties().get("warp_y_coord");
 				String objectName = "map/" + rectangleObject.getName() + ".tmx";
+				//player.setPosition(rectangleObject.getProperties().get);
 				System.out.println(objectName);
-				this.loadNewLevel(objectName);
+				this.loadNewLevel(objectName, xCoord, yCoord);
 			}
 		}
 	}
@@ -217,11 +205,12 @@ public class GameMain extends Game {
 		stage.addActor(fire_1);
 	}
 
-	private void loadNewLevel(String mapFile) {
+	private void loadNewLevel(String mapFile, float x, float y) {
 		//currentLevel.removeAllObjectsAndAnimations();
 		map = new TmxMapLoader().load(mapFile);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 		currentLevel = new GameLevel(mapFile, map, tiledMapRenderer);
+		player.setPosition(x, y);
 		setUpLevelMapAndCamera(currentLevel);
 		this.setCameraPosition();
 	}
@@ -234,6 +223,18 @@ public class GameMain extends Game {
 		collisionDirections.put("West", false);
 	}
 
+	private void getCustomTiles(String tileSetName, String customTileProperty) {
+		int count = 0;
+		TiledMapTileSet tileSet = map.getTileSets().getTileSet(tileSetName);
+		Map<String, TiledMapTile> customTiles = new HashMap<String, TiledMapTile>();
+		for (TiledMapTile tile : tileSet ) {
+			Object property = tile.getProperties().get("warp");
+			if (property != null) {
+				System.out.println(property.toString());
+			}
+		}
+		System.out.println("Tiles found: " + count);
+	}
 }
 
 

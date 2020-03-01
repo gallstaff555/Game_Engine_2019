@@ -12,9 +12,13 @@ import java.util.ArrayList;
 
 import static com.david.game.utils.Constants.COLLISION_LAYER_NAME;
 
+/**
+ * Maintains control over the current game level. This includes the TiledMap,
+ * collision and map object layers and foreground objects and animations.
+ *
+ */
 public class GameLevel {
 
-    //name, map, maprenderer, collection of actors, MapObjects: collisionObjects and warp objects
 
     private String name;
     private ArrayList<ForegroundObject> foregroundObjects;

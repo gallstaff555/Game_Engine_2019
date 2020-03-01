@@ -181,14 +181,13 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backAttack_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backIdle_0.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backIdle_1.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backIdle_2.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backIdle_3.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backRun_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backRun_1.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backRun_2.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/backRun_3.png</key>
+            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardAttack_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_1.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_2.png</key>
@@ -202,7 +201,6 @@
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardRun_2.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/forwardRun_3.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/leftAttack_0.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/leftAttack_1.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/leftIdle_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/leftRun_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/leftRun_1.png</key>
@@ -211,8 +209,6 @@
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightAttack_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightAttack_1.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightAttack_2.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightAttack_3.png</key>
-            <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightBlock_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightIdle_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightRun_0.png</key>
             <key type="filename">../../../../../Aseprite/raw_assets/linkAssets/rightRun_1.png</key>
@@ -235,14 +231,13 @@
         </map>
         <key>fileList</key>
         <array>
+            <filename>../../../../../Aseprite/raw_assets/linkAssets/backAttack_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/backIdle_0.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/backIdle_1.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/backIdle_2.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/backIdle_3.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/backRun_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/backRun_1.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/backRun_2.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/backRun_3.png</filename>
+            <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardAttack_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_1.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardIdle_2.png</filename>
@@ -256,22 +251,19 @@
             <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardRun_2.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/forwardRun_3.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftAttack_0.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/leftAttack_1.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftIdle_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftRun_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftRun_1.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftRun_2.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/leftRun_3.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_0.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_1.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_2.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_3.png</filename>
-            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightBlock_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightIdle_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightRun_0.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightRun_1.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightRun_2.png</filename>
             <filename>../../../../../Aseprite/raw_assets/linkAssets/rightRun_3.png</filename>
+            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_1.png</filename>
+            <filename>../../../../../Aseprite/raw_assets/linkAssets/rightAttack_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

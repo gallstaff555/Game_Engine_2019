@@ -8,11 +8,11 @@ import java.util.Map;
 
 import static com.david.game.utils.Constants.MOVEMENT_SPEED;
 
-public class PlayerMovement {
+public class PlayerControls {
 
     private Player player;
 
-    public PlayerMovement(Player player) {
+    public PlayerControls(Player player) {
         this.player = player;
     }
 
@@ -26,6 +26,9 @@ public class PlayerMovement {
         boolean rightPressed = false;
         boolean no_input = true; //used for animation
 
+        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+            System.out.println("Player position: [" + player.getX() + ", " + player.getY() + "]");
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             leftPressed = true;
@@ -46,13 +49,13 @@ public class PlayerMovement {
 
         if (no_input) {
             if (player.getPlayerDirection() == 'F') {
-                player.updateCharacterFrames("forwardIdle");
+                player.updateAnimation("forwardIdle");
             } else if (player.getPlayerDirection() == 'L') {
-                player.updateCharacterFrames("leftIdle");
+                player.updateAnimation("leftIdle");
             } else if (player.getPlayerDirection() == 'R') {
-                player.updateCharacterFrames("rightIdle");
+                player.updateAnimation("rightIdle");
             } else {  //up
-                player.updateCharacterFrames("backIdle");
+                player.updateAnimation("backIdle");
             }
         }
 
@@ -63,13 +66,13 @@ public class PlayerMovement {
 
         if (leftPressed) {
             player.setPlayerDirection('L');
-            boolean leftBlocked =  collisionDetected && ( collisionDirections.get("West") );
-            player.updateCharacterFrames("leftRun"); //"leftRun
+            boolean leftBlocked = collisionDetected && (collisionDirections.get("West"));
+            player.updateAnimation("leftRun"); //"leftRun
             if (upLeftPressed) {
                 if (leftBlocked) {
                     player.playerPosition(player.getX(), player.getY() + MOVEMENT_SPEED);
                 } else {
-                    if (  !collisionDirections.get("North")) {
+                    if (!collisionDirections.get("North")) {
                         player.playerPosition(player.getX() - MOVEMENT_SPEED, player.getY() + MOVEMENT_SPEED);
                     } else {
                         player.playerPosition(player.getX() - MOVEMENT_SPEED, player.getY());
@@ -79,24 +82,24 @@ public class PlayerMovement {
                 if (leftBlocked) {
                     player.playerPosition(player.getX(), player.getY() - MOVEMENT_SPEED);
                 } else {
-                    if ( !collisionDirections.get("South") ) {
+                    if (!collisionDirections.get("South")) {
                         player.playerPosition(player.getX() - MOVEMENT_SPEED, player.getY() - MOVEMENT_SPEED);
                     } else {
                         player.playerPosition(player.getX() - MOVEMENT_SPEED, player.getY());
                     }
                 }
-            } else if (!leftBlocked){
+            } else if (!leftBlocked) {
                 player.playerPosition(player.getX() - MOVEMENT_SPEED, player.getY());
             }
         } else if (rightPressed) {
             player.setPlayerDirection('R');
-            boolean rightBlocked = collisionDetected && ( collisionDirections.get("East"));
-            player.updateCharacterFrames("rightRun"); //"rightRun"
+            boolean rightBlocked = collisionDetected && (collisionDirections.get("East"));
+            player.updateAnimation("rightRun"); //"rightRun"
             if (upRightPressed) {
                 if (rightBlocked) {
                     player.playerPosition(player.getX(), player.getY() + MOVEMENT_SPEED);
                 } else {
-                    if ( !collisionDirections.get("North")) {
+                    if (!collisionDirections.get("North")) {
                         player.playerPosition(player.getX() + MOVEMENT_SPEED, player.getY() + MOVEMENT_SPEED);
                     } else {
                         player.playerPosition(player.getX() + MOVEMENT_SPEED, player.getY());
@@ -106,7 +109,7 @@ public class PlayerMovement {
                 if (rightBlocked) {
                     player.playerPosition(player.getX(), player.getY() - MOVEMENT_SPEED);
                 } else {
-                    if ( !collisionDirections.get("South")) {
+                    if (!collisionDirections.get("South")) {
                         player.playerPosition(player.getX() + MOVEMENT_SPEED, player.getY() - MOVEMENT_SPEED);
                     } else {
                         player.playerPosition(player.getX() + MOVEMENT_SPEED, player.getY());
@@ -118,19 +121,47 @@ public class PlayerMovement {
 
         } else if (downPressed) {
             player.setPlayerDirection('F');
-            boolean downBlocked = collisionDetected && ( collisionDirections.get("South") );
-            player.updateCharacterFrames("forwardRun");
+            boolean downBlocked = collisionDetected && (collisionDirections.get("South"));
+            player.updateAnimation("forwardRun");
             if (!downBlocked) {
                 player.playerPosition(player.getX(), player.getY() - MOVEMENT_SPEED);
             }
         } else if (upPressed) {
             player.setPlayerDirection('U');
-            boolean upBlocked = collisionDetected && ( collisionDirections.get("North"));
-            player.updateCharacterFrames("backRun");
+            boolean upBlocked = collisionDetected && (collisionDirections.get("North"));
+            player.updateAnimation("backRun");
             if (!upBlocked) {
                 player.playerPosition(player.getX(), player.getY() + MOVEMENT_SPEED);
             }
         }
     }
+
+    public void updateAttackAnimation() {
+        if (player.getPlayerAttacking()) {
+            if (player.getPlayerDirection() == 'F') {
+                player.updateAnimation("forwardAttack");
+            } else if (player.getPlayerDirection() == 'L') {
+                player.updateAnimation("leftAttack");
+            } else if (player.getPlayerDirection() == 'R') {
+                player.updateAnimation("rightAttack");
+            } else {
+                player.updateAnimation("backAttack");
+            }
+        }
+    }
+
+    /*
+    public void playerAttack() {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (player.getPlayerDirection() == 'R') {
+                player.attack("rightAttack");
+            }
+            if (player.getPlayerDirection() == 'L') {
+                player.attack("leftAttack");
+            }
+        }
+    } */
+
+
 }
 
