@@ -24,7 +24,7 @@ public class Weapon extends Actor {
     private TextureAtlas textureAtlas;
     private float elapsedTime = 0f;
     private boolean weaponAttacking = false;
-    private boolean attackingAllowed = true;
+    private boolean newAttackAllowed = true;
 
     public Weapon() {
         this.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
@@ -59,10 +59,9 @@ public class Weapon extends Actor {
 
     //only one attack allowed per spacebar press
     //return true if this call leads to weapon attacking
-    public boolean weaponAttack(char direction) {
-        boolean isAttacking = false;
+    public void weaponAttack(char direction) {
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            attackingAllowed = true;
+            newAttackAllowed = true;
             if (direction == 'F') {
                 weaponFrames = textureAtlas.findRegions("forwardSword");
             } else if (direction == 'L') {
@@ -73,18 +72,14 @@ public class Weapon extends Actor {
                 weaponFrames = textureAtlas.findRegions("backSword");
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && attackingAllowed) {
-            attackingAllowed = false;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && newAttackAllowed) {
+            System.out.println("trying to attack");
+            newAttackAllowed = false;
             weaponAttacking = true;
-            isAttacking = true;
         }
-        return isAttacking;
     }
 
     public boolean isWeaponAttacking() {
         return this.weaponAttacking;
-        //return !this.attackingAllowed;
     }
-
-
 }

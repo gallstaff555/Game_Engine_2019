@@ -2,7 +2,6 @@ package com.david.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -45,8 +44,6 @@ public class GameMain extends Game {
 
 	private Stage stage;
 	private Player player;
-	private Weapon playerWeapon;
-	private PlayerControls playerMovement;
 	private PlayerCollision playerCollision; //playerCollision handles player colliding with collision layer in TiledMap
 
 	private GameLevel currentLevel;
@@ -78,20 +75,18 @@ public class GameMain extends Game {
 
 		stage = new Stage(viewport);
 		player = new Player();
-		playerWeapon = new Weapon();
-		playerMovement = new PlayerControls(player);
+		//playerWeapon = new Weapon();
 
 		//map and camera and layers
 		setUpLevelMapAndCamera(currentLevel);
 
 		//Actors and stage
 		stage.addActor(player);
-		stage.addActor(playerWeapon);
+		stage.addActor(player.getWeapon());
 		//addFixedObjectsToStage();
 
 		player.playerPosition(horizontalTiles * TILE_HALF_SCALE + 16,
 				verticalTiles * TILE_HALF_SCALE); // * 8 gives middle of map
-		playerWeapon.setPosition(player.getX(), player.getY() );
 
 		camera.position.set(player.getX(), player.getY(), 0);
 		camera.update();
@@ -124,11 +119,10 @@ public class GameMain extends Game {
 		tiledMapRenderer.render();
 
 		//movement and control input
-		playerMovement.updateMovemement(playerCollision.updateCollisions(collisionDirections), collisionDirections);
-		//update whether player is attacking based on whether weaponAttack is active (weapon attack needs to know player direction)
-		player.setPlayerAttacking(playerWeapon.weaponAttack(player.getPlayerDirection()));
-		playerMovement.updateAttackAnimation();
-		playerWeapon.setPosition(player.getX(), player.getY());
+		player.getPlayerControls().updateMovemement(playerCollision.updateCollisions(collisionDirections), collisionDirections);
+		player.getPlayerControls().updateAttackAnimation();
+		//weapon will attack if space bar is pressed and will animate based on player's direction
+		player.getWeapon().weaponAttack(player.getPlayerDirection());
 
 		//check collisions and warp objects
 		playerCollision.updateCollisions(collisionDirections);

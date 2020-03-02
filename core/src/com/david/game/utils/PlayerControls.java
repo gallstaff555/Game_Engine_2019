@@ -136,6 +136,9 @@ public class PlayerControls {
         }
     }
 
+    /**
+     * Player will have special attack animation if their weapon is attacking
+     */
     public void updateAttackAnimation() {
         if (player.getPlayerAttacking()) {
             if (player.getPlayerDirection() == 'F') {
@@ -149,19 +152,5 @@ public class PlayerControls {
             }
         }
     }
-
-    /*
-    public void playerAttack() {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (player.getPlayerDirection() == 'R') {
-                player.attack("rightAttack");
-            }
-            if (player.getPlayerDirection() == 'L') {
-                player.attack("leftAttack");
-            }
-        }
-    } */
-
-
 }
 

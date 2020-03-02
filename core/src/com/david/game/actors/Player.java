@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
+import com.david.game.utils.PlayerControls;
 
 import static com.david.game.utils.Constants.ANIMATION_FRAME_SPEED;
 import static com.david.game.utils.Constants.PLAYER_SIZE;
@@ -27,6 +28,9 @@ public class Player extends Actor {
     private float elapsedTime = 0f;
     private boolean isAttacking = false;
 
+    private Weapon weapon;
+    private PlayerControls playerControls;
+
     public Player() {
         this.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         setTouchable(Touchable.enabled);
@@ -36,21 +40,37 @@ public class Player extends Actor {
         //Running animation
         characterFrames = textureAtlas.findRegions("forwardIdle"); //default: forwardIdle
         characterAnimation = new Animation<TextureRegion>( 1/16f, characterFrames);
+
+        //weapon -- sword by default
+        weapon = new Weapon();
+        weapon.setPosition(this.getX(), this.getY() );
+
+        playerControls = new PlayerControls(this);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         currentFrame = characterAnimation.getKeyFrame(elapsedTime, true);
         batch.draw(currentFrame, getX(), getY(), PLAYER_SIZE, PLAYER_SIZE);
-
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+        isAttacking = weapon.isWeaponAttacking();
         characterAnimation = new Animation<TextureRegion>(ANIMATION_FRAME_SPEED, characterFrames);
         sprite.setPosition(this.getX(), this.getY());
+        weapon.setPosition(this.getX(), this.getY());
         elapsedTime += Gdx.graphics.getDeltaTime();
+
+    }
+
+    public Weapon getWeapon() {
+        return this.weapon;
+    }
+
+    public PlayerControls getPlayerControls() {
+        return this.playerControls;
     }
 
     public char getPlayerDirection() {
@@ -74,10 +94,6 @@ public class Player extends Actor {
         rect.setHeight(PLAYER_SIZE);
         rect.setWidth(PLAYER_SIZE);
         return rect;
-    }
-
-    public void setPlayerAttacking(boolean attacking) {
-        this.isAttacking = attacking;
     }
 
     public boolean getPlayerAttacking() {
